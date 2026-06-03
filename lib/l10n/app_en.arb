@@ -1,0 +1,20 @@
+{
+  "appTitle": "Flutter Auth Starter",
+  "signIn": "Sign In",
+  "email": "Email",
+  "password": "Password",
+  "loginButton": "Sign In",
+  "home": "Home",
+  "logout": "Logout",
+  "welcome": "Welcome",
+  "user": "User",
+  "displayName": "Display Name",
+  "errorInvalidEmail": "Invalid email format",
+  "errorPasswordRequired": "Password is required",
+  "errorEmailRequired": "Email is required",
+  "errorAuthFailed": "Authentication failed",
+  "language": "Language",
+  "english": "English",
+  "spanish": "Spanish",
+  "french": "French"
+}

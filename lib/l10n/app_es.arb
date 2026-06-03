@@ -1,0 +1,20 @@
+{
+  "appTitle": "Iniciador de Autenticación Flutter",
+  "signIn": "Iniciar Sesión",
+  "email": "Correo Electrónico",
+  "password": "Contraseña",
+  "loginButton": "Iniciar Sesión",
+  "home": "Inicio",
+  "logout": "Cerrar Sesión",
+  "welcome": "Bienvenido",
+  "user": "Usuario",
+  "displayName": "Nombre Mostrado",
+  "errorInvalidEmail": "Formato de correo electrónico inválido",
+  "errorPasswordRequired": "La contraseña es obligatoria",
+  "errorEmailRequired": "El correo electrónico es obligatorio",
+  "errorAuthFailed": "Falló la autenticación",
+  "language": "Idioma",
+  "english": "Inglés",
+  "spanish": "Español",
+  "french": "Francés"
+}

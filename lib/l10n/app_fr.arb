@@ -1,0 +1,20 @@
+{
+  "appTitle": "Démarrage d'Authentification Flutter",
+  "signIn": "Se Connecter",
+  "email": "E-mail",
+  "password": "Mot de passe",
+  "loginButton": "Se Connecter",
+  "home": "Accueil",
+  "logout": "Déconnexion",
+  "welcome": "Bienvenue",
+  "user": "Utilisateur",
+  "displayName": "Nom à Afficher",
+  "errorInvalidEmail": "Format d'e-mail invalide",
+  "errorPasswordRequired": "Le mot de passe est obligatoire",
+  "errorEmailRequired": "L'e-mail est obligatoire",
+  "errorAuthFailed": "L'authentification a échoué",
+  "language": "Langue",
+  "english": "Anglais",
+  "spanish": "Espagnol",
+  "french": "Français"
+}
