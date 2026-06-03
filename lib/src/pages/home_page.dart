@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/auth/auth_event.dart';
 import '../bloc/auth/auth_state.dart';
+import '../bloc/language/language_bloc.dart';
+import '../bloc/language/language_event.dart';
+import '../models/language.dart';
+import '../../generated_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,18 +18,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         final user = state is AuthAuthenticated ? state.user : null;
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Home'),
+            title: Text(loc.home),
             actions: [
+              PopupMenuButton<AppLanguage>(
+                onSelected: (language) {
+                  context.read<LanguageBloc>().add(LanguageChanged(language));
+                },
+                itemBuilder: (context) => AppLanguage.values
+                    .map((lang) => PopupMenuItem(
+                          value: lang,
+                          child: Text(lang.label),
+                        ))
+                    .toList(),
+                icon: const Icon(Icons.language),
+              ),
               IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () => _signOut(context),
-                tooltip: 'Sign out',
+                tooltip: loc.logout,
               ),
             ],
           ),
@@ -36,7 +53,7 @@ class HomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Welcome, ${user?.displayLabel ?? 'User'}!',
+                    '${loc.welcome}, ${user?.displayLabel ?? loc.user}!',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -48,7 +65,7 @@ class HomePage extends StatelessWidget {
                   if (user != null) ...[
                     const SizedBox(height: 16),
                     Text(
-                      'Signed in as ${user.email}',
+                      '${loc.user}: ${user.email}',
                       textAlign: TextAlign.center,
                     ),
                   ],

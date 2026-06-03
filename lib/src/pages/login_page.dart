@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/auth/auth_event.dart';
 import '../bloc/auth/auth_state.dart';
+import '../bloc/language/language_bloc.dart';
+import '../bloc/language/language_event.dart';
+import '../models/language.dart';
+import '../../generated_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,8 +38,25 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign In')),
+      appBar: AppBar(
+        title: Text(loc.signIn),
+        actions: [
+          PopupMenuButton<AppLanguage>(
+            onSelected: (language) {
+              context.read<LanguageBloc>().add(LanguageChanged(language));
+            },
+            itemBuilder: (context) => AppLanguage.values
+                .map((lang) => PopupMenuItem(
+                      value: lang,
+                      child: Text(lang.label),
+                    ))
+                .toList(),
+            icon: const Icon(Icons.language),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<AuthBloc, AuthState>(
@@ -56,13 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(labelText: loc.email),
                 ),
                 const SizedBox(height: 16),
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  decoration: InputDecoration(labelText: loc.password),
                 ),
                 const SizedBox(height: 24),
                 if (errorMessage != null)
@@ -83,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                             width: 20,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text('Sign In'),
+                        : Text(loc.loginButton),
                   ),
                 ),
               ],
