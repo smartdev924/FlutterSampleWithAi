@@ -6,8 +6,13 @@ import '../bloc/auth/auth_event.dart';
 import '../bloc/auth/auth_state.dart';
 import '../bloc/language/language_bloc.dart';
 import '../bloc/language/language_event.dart';
+import '../bloc/theme/theme_bloc.dart';
+import '../bloc/theme/theme_event.dart';
 import '../models/language.dart';
+import '../services/theme_service.dart';
 import '../../generated_l10n/app_localizations.dart';
+
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,8 +31,29 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(loc.home),
-            actions: [
+actions: [
+              PopupMenuButton<AppThemeMode>(
+                onSelected: (mode) {
+                  context.read<ThemeBloc>().add(ThemeChanged(mode));
+                },
+                itemBuilder: (context) => const [
+                  PopupMenuItem(
+                    value: AppThemeMode.light,
+                    child: Text('Light'),
+                  ),
+                  PopupMenuItem(
+                    value: AppThemeMode.dark,
+                    child: Text('Dark'),
+                  ),
+                  PopupMenuItem(
+                    value: AppThemeMode.system,
+                    child: Text('System'),
+                  ),
+                ],
+                icon: const Icon(Icons.brightness_6),
+              ),
               PopupMenuButton<AppLanguage>(
+
                 onSelected: (language) {
                   context.read<LanguageBloc>().add(LanguageChanged(language));
                 },

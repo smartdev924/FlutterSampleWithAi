@@ -7,7 +7,12 @@ import '../bloc/auth/auth_state.dart';
 import '../bloc/language/language_bloc.dart';
 import '../bloc/language/language_event.dart';
 import '../models/language.dart';
+import '../bloc/theme/theme_bloc.dart';
+import '../bloc/theme/theme_event.dart';
 import '../../generated_l10n/app_localizations.dart';
+import '../services/theme_service.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,8 +47,29 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(loc.signIn),
-        actions: [
+actions: [
+          PopupMenuButton<AppThemeMode>(
+            onSelected: (mode) {
+              context.read<ThemeBloc>().add(ThemeChanged(mode));
+            },
+            itemBuilder: (context) => const [
+              PopupMenuItem(
+                value: AppThemeMode.light,
+                child: Text('Light'),
+              ),
+              PopupMenuItem(
+                value: AppThemeMode.dark,
+                child: Text('Dark'),
+              ),
+              PopupMenuItem(
+                value: AppThemeMode.system,
+                child: Text('System'),
+              ),
+            ],
+            icon: const Icon(Icons.brightness_6),
+          ),
           PopupMenuButton<AppLanguage>(
+
             onSelected: (language) {
               context.read<LanguageBloc>().add(LanguageChanged(language));
             },
