@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(loc.home),
-actions: [
+            actions: [
               PopupMenuButton<AppThemeMode>(
                 onSelected: (mode) {
                   context.read<ThemeBloc>().add(ThemeChanged(mode));
@@ -53,7 +53,6 @@ actions: [
                 icon: const Icon(Icons.brightness_6),
               ),
               PopupMenuButton<AppLanguage>(
-
                 onSelected: (language) {
                   context.read<LanguageBloc>().add(LanguageChanged(language));
                 },
@@ -72,32 +71,47 @@ actions: [
               ),
             ],
           ),
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    '${loc.welcome}, ${user?.displayLabel ?? loc.user}!',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'The app is prepared for authentication and future API integration.',
-                    textAlign: TextAlign.center,
-                  ),
-                  if (user != null) ...[
-                    const SizedBox(height: 16),
-                    Text(
-                      '${loc.user}: ${user.email}',
-                      textAlign: TextAlign.center,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              return SafeArea(
+                child: SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '${loc.welcome}, ${user?.displayLabel ?? loc.user}!',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const Text(
+                              'The app is prepared for authentication and future API integration.',
+                              textAlign: TextAlign.center,
+                            ),
+                            if (user != null) ...[
+                              const SizedBox(height: 16),
+                              Text(
+                                '${loc.user}: ${user.email}',
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                ],
-              ),
-            ),
+                  ),
+                ),
+              );
+            },
           ),
         );
       },
